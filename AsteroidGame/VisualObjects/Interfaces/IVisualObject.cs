@@ -1,11 +1,10 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace AsteroidGame.VisualObjects.Interfaces
 {
-    internal interface IVisualObject
+    internal interface IVisualObject: IGameObject
     {
-        void Update();
-
         void Draw(Graphics g);
     }
 }

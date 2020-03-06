@@ -8,7 +8,7 @@ using AsteroidGame.VisualObjects.Interfaces;
 
 namespace AsteroidGame.VisualObjects
 {
-    abstract class MovedObject : IVisualObject
+    public abstract class MovedObject : IVisualObject
     {
         protected Point _Position;
         protected Point _Direction;
@@ -29,20 +29,21 @@ namespace AsteroidGame.VisualObjects
 
         public virtual void Update()
         {
-            _Position = new Point(
-                _Position.X + _Direction.X,
-                _Position.Y + _Direction.Y);
+            var position_x = _Position.X + _Direction.X;
+            var position_y = _Position.Y + _Direction.Y;
 
-            if (_Position.X < 0)
-                //_Direction.X *= -1;
-                _Direction = new Point(-_Direction.X, _Direction.Y);
-            if (_Position.Y < 0)
-                _Direction = new Point(_Direction.X, -_Direction.Y);
+            if (position_x + _Size.Width < 0)
+                position_x = Game.Width;
+            else if (position_x > Game.Width)
+                position_x = 0;
 
-            if (_Position.X + _Size.Width > Game.Width)
-                _Direction = new Point(-_Direction.X, _Direction.Y);
-            if (_Position.Y + _Size.Height > Game.Height)
-                _Direction = new Point(_Direction.X, -_Direction.Y);
+
+            if (position_y + _Size.Height < 0)
+                position_y = Game.Height;
+            else if (position_y > Game.Height)
+                position_y = 0;
+
+            _Position = new Point(position_x, position_y);
         }
     }
 }

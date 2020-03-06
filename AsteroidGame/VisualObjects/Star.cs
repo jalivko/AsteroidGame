@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsteroidGame.VisualObjects
 {
-    class Star: MovedObject
+    public class Star: MovedObject
     {
         public Star(Point Position, Point Direction, int Size): base(Position, Direction, new Size(Size, Size))
         {
@@ -27,19 +27,21 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
-            _Position = new Point(
-                _Position.X + _Direction.X,
-                _Position.Y + _Direction.Y);
+            var position_x = _Position.X + _Direction.X;
+            var position_y = _Position.Y + _Direction.Y;
 
-            if (_Position.X < 0)
-                _Position = new Point(Game.Width - _Size.Width, _Position.Y);
-            if (_Position.Y < 0)
-                _Position = new Point(_Position.X, Game.Height - _Size.Height);
+            if (position_x < 0)
+                position_x = Game.Width - _Size.Width;
+            else if (position_x + _Size.Width > Game.Width)
+                position_x = 0;
 
-            if (_Position.X + _Size.Width > Game.Width)
-                _Position = new Point(0, _Position.Y);
-            if (_Position.Y + _Size.Height > Game.Height)
-                _Position = new Point(_Position.X, 0);
+
+            if (position_y < 0)
+                position_y = Game.Height - _Size.Height;
+            else if (position_y + _Size.Height > Game.Height)
+                position_y = 0;
+
+            _Position = new Point(position_x, position_y);
         }
     }
 }

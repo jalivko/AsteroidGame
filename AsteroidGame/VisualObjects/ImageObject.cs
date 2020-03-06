@@ -7,15 +7,18 @@ using System.Drawing;
 
 namespace AsteroidGame.VisualObjects
 {
-    class EllipseObject: MovedObject
+    public class ImageObject: MovedObject
     {
-        public EllipseObject(Point Position, Point Direction, Size Size) : base(Position, Direction, Size)
+        protected Image _Sprite;
+
+        public ImageObject(Point Position, Point Direction, Size Size, Image Sprite) : base(Position, Direction, Size)
         {
+            this._Sprite = Sprite;
         }
 
         public override void Draw(Graphics g)
         {
-            g.DrawEllipse(Pens.White, Rect);
+            g.DrawImage(_Sprite, Rect);
         }
     }
 }
